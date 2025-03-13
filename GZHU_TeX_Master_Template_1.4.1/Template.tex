@@ -1,0 +1,329 @@
+% !Mode:: "TeX:UTF-8"
+% 请务必使用 XeLaTeX 编译本文，如目录不显示，请二次编译
+\documentclass{GZHUMaster}
+
+%------------------------ 参考文献 ------------------------
+\bibliographystyle{abbrv}        %参考文献样式，plain、unsrt、alpha、abbrv等等
+
+%------------------------ 全篇开始 ------------------------
+\begin{document}
+\setmainfont{Times New Roman}  %根据广州大学研究生工作手册，学位论文的英文及字母书写应使用Times New Roman
+
+%------------------------ 变量赋值 ------------------------
+\DCI{X999.9}                   %分类号：《中国图书资料分类法》的类号
+\SchoolNumber{11078}           %11078是广州大学的编号
+\ConfLvl{}                     %密级
+\title{广州大学硕士毕业论文~\LaTeX~模板}                       %中文题目
+\Etitle{A \LaTeX~Thesis Template for Guangzhou University} %英文题目
+\author{作者}                   %作者姓名
+\StudentNumber{1234567890}     %学号
+\Supervisor{}                  %指导教师姓名、职称
+\Major{专业名称}                %专业名
+\Specialty{方向名称}            %研究方向
+\date{2077.1.1}               %日期只写年月
+\Chairman{}                    %答辩委员会主席
+\Member{}                      %答辩委员会成员
+
+%------------------------ 封面书签 ------------------------
+\pdfbookmark[0]{封面}{title}         %封面页加到pdf书签
+\maketitle
+
+%------------------------ 前置设置 ------------------------
+\frontmatter
+\pagenumbering{Roman}               %正文之前的页码用大写罗马字母编号
+\cleardoublepage
+\newpage
+\pagestyle{fancy}
+\fancyfancy
+
+%------------------------ 摘要添加 ------------------------
+\include{includefile/midmatter}      %加入中英文摘要
+%%%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+
+%------------------------ 目录添加 ------------------------
+\pdfbookmark[0]{目录}{toc}
+{\zihao{-4}\tableofcontents}
+
+%------------------------ 正文设置 ------------------------
+\mainmatter %以下是正文
+\renewcommand{\baselinestretch}{1.5}  %正文行距1.5倍
+\zihao{-4}                            %正文字号小四号
+\renewcommand{\thefigure}{\thechapter-\arabic{figure}} %将图标题序号改写为 1-1 的形式，若希望 1.1 ，请注释掉本行
+\renewcommand{\thetable}{\thechapter-\arabic{table}}   %将表标题序号改写为 1-1 的形式，若希望 1.1 ，请注释掉本行
+%%%\newcommand{\zhchapter}{\zhnumber{\thechapter}}        %若页眉无法呈现 第一章 的形式，请取消注释由 %%% 注释的行，分别位于【摘要添加】、【正文设置】和【参考文献】
+%%%\renewcommand{\chaptermark}[1]{\markboth{第 \zhchapter 章 \quad #1}{}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%第一章%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{使用方法}
+对于不熟悉~\LaTeX 的同学，建议在全面完成毕业论文初稿后使用本模板。\LaTeX 上手需要一定时间，调整图表公式格式和位置是一个辛苦活，但最终结果是美好的！
+\section{环境搭建}
+\subsection{软件下载地址}
+基于本模板的测试情况，强烈推荐采用MiKTeX配合TeXstudio的使用方式，这种方式最稳定也最高效。\par
+MiKTeX下载地址：\par
+\url{https://miktex.org/download}\par
+TeXstudio下载地址：\par
+\url{https://texstudio.sourceforge.net}\par
+请务必根据自己的系统情况选择合适的版本进行下载！！\par
+\subsection{安装及配置步骤}
+下载完成后，请按以下步骤安装配置所需软件：\par
+（1）安装MiKTeX，按默认选项安装即可。\par
+（2）打开MiKTeX Console，检查是否安装成功。\par
+（3）安装TeXstudio，按默认选项安装即可。\par
+（4）打开TeXstudio，进入设置，选择“构建”部分，将右侧的“默认编译器”由PdfLaTeX改为XeLaTeX。\par
+至此，TeX软件的安装配置工作已经完成，但编译文档所需的各种宏包还未安装，详情请参阅后续步骤。
+\section{具体使用步骤}
+第一步：进入includefile文件夹，打开midmatter.tex填写中文摘要和英文摘要，然后打开backmatter.tex填写致谢。\par
+第二步：打开主文档Template.tex，填写个人信息并书写正文。\par
+第三步：使用XeLaTeX编译本文，记得编译两次，否则生成的文档中没有目录！\par
+注意事项：若使用本文推荐的软件环境，在第一次编译时会提示缺少宏包，请根据指引慢慢安装这些宏包，安装完毕后再次编译就不会出现这种问题了。
+\section{其他问题}
+本模板默认新章节内容从右手边开始，因此可能造成许多空白页，若希望在正文中消除这些空白页，请在GZHUMaster.cls的开头找到：\par
+\verb|\LoadClass[a4paper,twoside]{ctexbook}|\par
+并改为：\par
+\verb|\LoadClass[a4paper,twoside,openany]{ctexbook}|\par
+除此之外，模板中还有许多可以自行调节的地方，详细内容请参考tex和cls文件中的注释。\par
+若存在其他潜在的编译问题，请参考本人开发及测试环境，如表 \ref{tab1} 所示，在这些环境下本文均可正常编译。请注意，macOS、Windows和Linux的字体库各不相同，同一个文档在不同系统下生成的字体外观存在细微差异，这是正常的。\par
+\begin{table}[h]
+  \centering
+  \caption{开发及测试环境}
+  \begin{tabular}{ccc}
+    \hline
+    & 开发环境 & 测试环境 \\
+    \hline
+    OS & macOS Sequoia & Windows 10 \\
+    TeX版本 & MacTeX-2024 & MiKTeX-24.1 \\
+    开发环境 & Visual Studio Code 1.96.2 & TeXstudio 4.8.5 \\
+    编译器 & XeLaTeX & XeLaTeX \\
+    \hline
+  \end{tabular}
+  \label{tab1}
+\end{table}
+除此之外，本文档也在Overleaf在线LaTeX编辑器中完成编译，若不方便下载上述软件，也可以在Overleaf中进行编辑。
+%%%%%%%%%%%%%%%%%%%%%%%%%%第二章%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{常用功能介绍}
+\section{正文书写}
+正文的具体书写方式请参考本文~.tex~文件中的代码，以下仅介绍部分常用命令：\par
+章标题：\verb|\chapter{}|\par
+节标题：\verb|\section{}|、\verb|\subsection{}|、\verb|\subsubsection{}|\par
+换行（段落不变）：\verb|\\|\par
+换行（另起一段）：\verb|\par|\par
+加粗（\textbf{Bold}）：\verb|\textbf{}|\par
+斜体（\textit{Italic}）：\verb|\textit{}|\par
+宋体（{\songti 宋体}）：\verb|\songti|\par
+黑体（{\heiti 黑体}）：\verb|\heiti|，请注意，对宋体使用加粗命令即可变为黑体\par
+仿宋（{\fangsong 仿宋}）：\verb|\fangsong|\par
+楷书（{\kaishu 楷书}）：\verb|\kaishu|，请注意，对宋体使用斜体命令即可变为楷书\par
+字号：\verb|\zihao{}|，大括号内填~-4为小四号，填4为四号字，以此类推
+\section{插入表格}
+\subsection{一般三线表}
+普通的三线表的绘制方式如表 \ref{tab2} 所示，仅作为表格编写示范，不建议在毕业论文中使用。
+\begin{table}[h]
+  \centering
+  \caption{一般三线表}
+  \begin{tabular}{ccc}
+    \hline
+    列1 & 列2 & 列3 \\
+    \hline
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9 \\
+    \hline
+  \end{tabular}
+  \label{tab2}
+\end{table}
+\subsection{存在合并列和双上下框线的表格}
+存在单元格合并情况的表格处理起来复杂一些，如表 \ref{tab3} 所示，此表为顶部底部双线表，中间的线用于展示表格关系，请按需使用。
+\begin{table}[h]
+  \centering
+  \caption{单元格合并的表格}
+  \begin{tabular}{c|c|c}
+    \hline\hline
+    \multicolumn{2}{c|}{合并列} & 独立列 \\
+    \hline
+    & 1 & 2 \\\cline{2-3}
+    合并行 & 3 & 4 \\\cline{2-3}
+    & 5 & 6 \\
+    \hline\hline
+  \end{tabular}
+  \label{tab3}
+\end{table}
+
+\subsection{标准毕业论文表格}
+标准的毕业论文表格建议符合以下要求：\par
+（1）表格与页面文字同宽。\par
+（2）上下框线加粗。\par
+（3）内容居中。\par
+此处以tabularx包的用法为例，使用时请以表 \ref{tab4} 的方式设计。在进行列设定时，请注意一个\verb|>{\centering\arraybackslash}X|代表一列（自动设置列宽并居中的意思）。
+\begin{table}[h]
+  \centering
+  \caption{标准毕业论文三线表}
+  \begin{tabularx}{\textwidth}{>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+    \toprule
+    列1 & 列2 & 列3 \\
+    \midrule
+    1 & 2 & 3 \\
+    4 & 5 & 6 \\
+    7 & 8 & 9 \\
+    \bottomrule
+  \end{tabularx}
+  \label{tab4}
+\end{table}
+\subsection{标准跨页表格}
+如需引入符合标准的跨页表格，可按表 \ref{tab5} 的形式设计。\par
+
+\begingroup\zihao{5}
+\begin{longtable}{>{\centering\arraybackslash}p{0.307\textwidth}>{\centering\arraybackslash}p{0.307\textwidth}>{\centering\arraybackslash}p{0.307\textwidth}}
+  \caption{跨页表格}
+  \label{tab5}\\
+  \toprule
+  列1 & 列2 & 列3 \\
+  \midrule
+  \endfirsthead
+  \toprule
+  列1 & 列2 & 列3 \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+  \bottomrule
+  \endlastfoot
+  1 & 2 & 3 \\
+  4 & 5 & 6 \\
+  7 & 8 & 9 \\
+  10 & 11 & 12 \\
+  13 & 14 & 15 \\
+  16 & 17 & 18 \\
+\end{longtable}
+\endgroup
+
+注意到此处使用 \verb|\begingroup\zihao{5}| 和 \verb|\endgroup| 来修改表格字体大小。\par
+出于某些奇怪的原因，longtable的列宽参数并不能设置为相加为1的textwidth，根据测试，与页面文字同宽的参数为0.921，也就是需要保证每一列的宽度加起来为0.921。表 \ref{tab5} 中的每列参数均为0.307。
+\subsection{进阶标准毕业论文表格}
+一些表格可能存在行合并的情况，或者需要手动调整列宽，因此并不能简单设置为默认的三线表，具体情况如表 \ref{tab6} 所示。\par
+\begin{table}[h]
+  \centering
+  \caption{进阶标准毕业论文表格}
+  \begin{tabularx}{\textwidth}{>{\centering\arraybackslash\hsize=0.4\hsize}X>{\centering\arraybackslash\hsize=1.2\hsize}X>{\centering\arraybackslash\hsize=1.2\hsize}X>{\centering\arraybackslash\hsize=1.2\hsize}X}
+    \toprule
+    列1 & 列2 & 列3 & 列4\\
+    \midrule
+    A & 1 & 2 & 3\\\cmidrule{2-4}
+    & 4 & 5 & 6\\
+    B & 7 & 8 & 9 \\
+    & 10 & 11 & 12\\\cmidrule{2-4}
+    \raisebox{-0.9em}[0pt][0pt]{C} & 13 & 14 & 15\\
+    & 16 & 17 & 18\\
+    \midrule
+    X & 1 & 2 & 3\\
+    \bottomrule
+  \end{tabularx}
+  \label{tab6}
+\end{table}
+在此表中，第一列列宽为0.4倍，其他列为1.2倍，总共加起来仍为4。参数hsize可以自动按比例调整列宽，并不需要相加为列数本身。hsize默认值为1，即不填。
+\section{插入图片}
+插入图片的效果如图 \ref{img1} 所示。\par
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\textwidth]{image1.jpeg}
+  \caption{示例图片}
+  \label{img1}
+\end{figure}
+这张图片的宽度与页面宽度一致。\par
+再插入第二张图，自定义其宽度，如图 \ref{img2} 所示。\par
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=40em]{image2.jpeg}
+  \caption{示例图片（宽度为40em）}
+  \label{img2}
+\end{figure}
+尽管\verb|\begin{figure}[]|中括号中的参数填写为h，但因为版面空间不够，图片会显示在下一页，需要通过进一步调整图片宽度解决这些问题。参数h代表将图表放置于此，t代表放置顶部，b代表放置底部，p代表放置于下一页，可混合使用。
+\section{插入公式}
+通常情况下，想实现$x$这样的字体，只需要输入：\verb|$x$|即可。\par
+对于$x_1$这样的下标，只需要输入：\verb|$x_1$|即可。\par
+对于希腊字母$\beta$，只需要输入：\verb|$\beta$|即可。\par
+对于公式的写法，可以参考式\ref{equ1}的写法。
+\begin{equation}
+  y=\alpha x^2. \tag*{（2-1）}
+  \label{equ1}
+\end{equation}\par
+对于包含求和的公式，可以参考式\ref{equ2}的写法。
+\begin{equation}
+  y=\sum_{i=1}^{n}x_i. \tag*{（2-2）}
+  \label{equ2}
+\end{equation}\par
+对于不需要参考的公式，无需对其进行编号：
+\[y=\alpha x + \beta,\]
+其中$\alpha$为斜率，$\beta$为截距。\par
+请注意，规范书写的公式结尾应具备英文标点符号，作为段落中的一部分。如上所述，若参数介绍紧跟列出的公式，请顶格书写“其中\dots”等描述。\par
+分数的书写方式像这样$\frac{4}{9}$，用法为\verb|$\frac{4}{9}$|。\par
+其他数学符号写法请自行查阅资料。
+\section{引用标记}
+对于论文的引用，可以参考文献\cite{r1}，也可以参考文献\upcite{r2}。\par
+具体写法为\verb|\cite{r1}|和\verb|\upcite{r2}|。\par
+另外可参考文献\upcite{r1,r2,r3}。\par
+写法为\verb|\upcite{r1,r2,r3}|。
+\section{插入脚注}
+一些文字可能需要额外的解释\footnote{即脚注，就像这样。}，使用脚注可以补充这些内容。也可手动控制序号\footnote[16]{就像这样！}。
+\section{插入算法}
+算法模块的排版参考广州大学魏伟明同学的开源模板，特此致谢。\par
+以下是算法 \ref{alg1} 的伪代码：\par
+\begin{algorithm}[h]
+  \caption{算法名称}
+  \begin{algorithmic}[1] %每行显示行号，删除则不显示
+      \Require 这是输入
+      \Ensure 这是输出
+      \For{$j=0,\cdots, d$}
+          \State {Test} \Comment{这是注释}
+      \EndFor
+      \If{$w>1$}
+        \State {Test}
+      \EndIf
+      \While{$a>1$}
+        \State{Test}
+      \EndWhile
+      \State{$\textbf{return }$ 0}
+  \end{algorithmic}
+  \label{alg1}
+\end{algorithm}
+可根据喜好自行改变字体与缩进方式。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%第三章%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{更新方式}
+本章仅供之前已使用过本模板的情况下，初次使用无需阅读。
+\section{简易更新}
+直接将新版本中的GZHUMaster.cls替换掉老版本中的相同文件即可。如需使用更新的功能请阅读Tutorial.pdf，具体代码仍需参考新版本的Template.tex文件。\par
+注意：由于部分更新内容是包含在Template.tex主文件中的，因此不建议直接将GZHUMaster.cls文件替换为新版。若使用者已在cls文件或tex文件中加入自己所需的包或修改格式，请自行定位并移植这些修改部分。
+\section{完整更新}
+（1）同时打开新老版本文件夹，将老版本文件夹中的figures文件夹复制替换掉新版本的同名文件夹。\par
+（2）同时打开新老版本tex主文件，将老版本从“正文设置”后到”参考文献“前的部分复制替换到新的tex文件模板中。\par
+（3）对于参考文献，请仅替换\par
+\verb|\begin{thebibliography}{0}\zihao{-4}|\par
+到\par
+\verb|\end{thebibliography}|\par
+中的部分。
+
+%------------------------ 参考文献 ------------------------
+\cleardoublepage\phantomsection
+%%%\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\makeatletter
+\renewcommand{\@biblabel}[1]{\makebox[2em][l]{[#1]}}
+\makeatother
+\addcontentsline{toc}{chapter}{参考文献}
+\begin{thebibliography}{0}\zihao{-4}
+  \bibitem{r1} 作者,文章题目[类型],期刊名,年份(期数):起止页码
+  \bibitem{r2} Authors,Title[Category],Name of the Journal,Year(Issue):Page
+  \bibitem{r3} 作者1,作者2,文章题目[类型],期刊名,年份(期数):起止页码
+\end{thebibliography}
+
+%------------------------ 附录内容 ------------------------
+\appendix
+\chapter{附录使用方式}
+以下为附录的编辑方式。
+\section{附录编辑方式}
+在\verb|\appendix|后的\verb|\chapter{}|以及\verb|\section{}|均以A、B、C的形式排布，不影响正文章节。
+
+
+\backmatter
+\include{includefile/backmatter} %致谢
+\cleardoublepage
+\end{document}
